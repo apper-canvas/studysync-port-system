@@ -6,11 +6,11 @@ import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 
 const AssignmentCard = ({ assignment, course, onEdit, onDelete, onToggleComplete }) => {
-  const dueDate = new Date(assignment.dueDate);
+const dueDate = new Date(assignment.due_date_c);
   const daysUntilDue = differenceInDays(dueDate, new Date());
   
   const getDueDateStatus = () => {
-    if (assignment.completed) return { color: "success", text: "Completed" };
+    if (assignment.completed_c) return { color: "success", text: "Completed" };
     if (daysUntilDue < 0) return { color: "error", text: "Overdue" };
     if (daysUntilDue === 0) return { color: "warning", text: "Due Today" };
     if (daysUntilDue <= 3) return { color: "warning", text: `Due in ${daysUntilDue} day${daysUntilDue > 1 ? "s" : ""}` };
@@ -38,34 +38,34 @@ const AssignmentCard = ({ assignment, course, onEdit, onDelete, onToggleComplete
 
   return (
     <Card 
-      className={`p-6 border-l-4 ${colorMap[course?.color] || "border-primary"} ${
+className={`p-6 border-l-4 ${colorMap[course?.color_c] || "border-primary"} ${
         assignment.completed ? "opacity-75" : ""
       }`}
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <div className="flex items-center space-x-3 mb-2">
-            <h3 className={`font-bold text-lg ${assignment.completed ? "line-through text-gray-500" : "text-gray-900"}`}>
-              {assignment.title}
+<h3 className={`font-bold text-lg ${assignment.completed_c ? "line-through text-gray-500" : "text-gray-900"}`}>
+              {assignment.title_c}
             </h3>
-            <Badge variant={priorityColors[assignment.priority]}>
-              {assignment.priority.toUpperCase()}
+            <Badge variant={priorityColors[assignment.priority_c]}>
+              {assignment.priority_c?.toUpperCase()}
             </Badge>
           </div>
           <p className="text-gray-600 text-sm mb-3">{assignment.description}</p>
           <div className="flex items-center space-x-4 text-sm text-gray-600">
             <div className="flex items-center">
               <ApperIcon name="BookOpen" size={16} className="mr-1" />
-              {course?.name || "Unknown Course"}
+{course?.name_c || "Unknown Course"}
             </div>
             <div className="flex items-center">
               <ApperIcon name="Calendar" size={16} className="mr-1" />
               {format(dueDate, "MMM d, yyyy")}
             </div>
-            {assignment.grade !== null && assignment.grade !== undefined && (
+{assignment.grade_c !== null && assignment.grade_c !== undefined && (
               <div className="flex items-center">
                 <ApperIcon name="Award" size={16} className="mr-1" />
-                {assignment.grade}/{assignment.maxPoints}
+                {assignment.grade_c}/{assignment.max_points_c}
               </div>
             )}
           </div>

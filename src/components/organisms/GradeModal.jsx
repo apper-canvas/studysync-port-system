@@ -6,19 +6,19 @@ import ApperIcon from "@/components/ApperIcon";
 
 const GradeModal = ({ isOpen, onClose, onSave, assignment = null, courses = [] }) => {
   const [formData, setFormData] = useState({
-    grade: "",
-    maxPoints: 100
+grade: "",
+    max_points_c: 100
   });
 
   const [errors, setErrors] = useState({});
 
-  const course = courses.find(c => c.Id === assignment?.courseId);
+const course = courses.find(c => c.Id === (assignment?.course_id_c?.Id || assignment?.course_id_c));
 
   useEffect(() => {
-    if (assignment) {
+if (assignment) {
       setFormData({
-        grade: assignment.grade !== null && assignment.grade !== undefined ? assignment.grade.toString() : "",
-        maxPoints: assignment.maxPoints || 100
+        grade: assignment.grade_c !== null && assignment.grade_c !== undefined ? assignment.grade_c.toString() : "",
+        max_points_c: assignment.max_points_c || 100
       });
     }
     setErrors({});
@@ -57,9 +57,9 @@ const GradeModal = ({ isOpen, onClose, onSave, assignment = null, courses = [] }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      onSave({
+onSave({
         grade: parseFloat(formData.grade),
-        maxPoints: parseFloat(formData.maxPoints)
+        maxPoints: parseFloat(formData.max_points_c)
       });
     }
   };
@@ -108,8 +108,8 @@ const GradeModal = ({ isOpen, onClose, onSave, assignment = null, courses = [] }
 
         <div className="p-6">
           <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-            <h3 className="font-semibold text-gray-900 mb-1">{assignment.title}</h3>
-            <p className="text-sm text-gray-600">{course?.name}</p>
+<h3 className="font-semibold text-gray-900 mb-1">{assignment.title_c}</h3>
+            <p className="text-sm text-gray-600">{course?.name_c}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

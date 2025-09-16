@@ -41,13 +41,13 @@ const Dashboard = () => {
     loadData();
   }, []);
 
-  const handleToggleComplete = async (id) => {
+const handleToggleComplete = async (id) => {
     try {
-      await assignmentService.toggleComplete(id);
+      const updatedAssignment = await assignmentService.toggleComplete(id);
       setAssignments(prev => 
         prev.map(assignment => 
           assignment.Id === id 
-            ? { ...assignment, completed: !assignment.completed }
+            ? updatedAssignment
             : assignment
         )
       );
@@ -60,12 +60,12 @@ const Dashboard = () => {
   if (loading) return <Loading type="skeleton" message="Loading dashboard..." />;
   if (error) return <Error message={error} onRetry={loadData} />;
 
-  // Calculate stats
+// Calculate stats
   const totalAssignments = assignments.length;
-  const completedAssignments = assignments.filter(a => a.completed).length;
+  const completedAssignments = assignments.filter(a => a.completed_c).length;
   const pendingAssignments = totalAssignments - completedAssignments;
   const overdueAssignments = assignments.filter(a => 
-    !a.completed && new Date(a.dueDate) < new Date()
+    !a.completed_c && new Date(a.due_date_c) < new Date()
   ).length;
   
   const completionRate = totalAssignments > 0 
@@ -74,18 +74,18 @@ const Dashboard = () => {
 
   // Get upcoming assignments (next 7 days, not completed)
   const upcomingAssignments = assignments
-    .filter(assignment => {
-      const dueDate = new Date(assignment.dueDate);
+.filter(assignment => {
+      const dueDate = new Date(assignment.due_date_c);
       const daysUntil = differenceInDays(dueDate, new Date());
-      return !assignment.completed && daysUntil >= 0 && daysUntil <= 7;
+      return !assignment.completed_c && daysUntil >= 0 && daysUntil <= 7;
     })
     .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
     .slice(0, 3);
 
   // Calculate average grade
-  const gradedAssignments = assignments.filter(a => a.grade !== null && a.grade !== undefined);
+const gradedAssignments = assignments.filter(a => a.grade_c !== null && a.grade_c !== undefined);
   const averageGrade = gradedAssignments.length > 0
-    ? Math.round(gradedAssignments.reduce((sum, a) => sum + (a.grade / a.maxPoints * 100), 0) / gradedAssignments.length)
+    ? Math.round(gradedAssignments.reduce((sum, a) => sum + (a.grade_c / a.max_points_c * 100), 0) / gradedAssignments.length)
     : 0;
 
   return (
@@ -167,7 +167,7 @@ const Dashboard = () => {
             ) : (
               <div className="space-y-4">
                 {upcomingAssignments.map(assignment => {
-                  const course = courses.find(c => c.Id === assignment.courseId);
+const course = courses.find(c => c.Id === (assignment.course_id_c?.Id || assignment.course_id_c));
                   return (
                     <AssignmentCard
                       key={assignment.Id}

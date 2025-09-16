@@ -39,8 +39,8 @@ const FilterBar = ({
           >
             <option value="">All Courses</option>
             {courses.map(course => (
-              <option key={course.Id} value={course.Id}>
-                {course.name}
+<option key={course.Id} value={course.Id}>
+                {course.name_c}
               </option>
             ))}
           </Select>

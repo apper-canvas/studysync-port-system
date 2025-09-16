@@ -54,11 +54,11 @@ const Courses = () => {
   const handleSaveCourse = async (courseData) => {
     try {
       if (selectedCourse) {
-        await courseService.update(selectedCourse.Id, courseData);
+const updatedCourse = await courseService.update(selectedCourse.Id, courseData);
         setCourses(prev => 
           prev.map(course => 
             course.Id === selectedCourse.Id 
-              ? { ...courseData, Id: selectedCourse.Id }
+              ? updatedCourse
               : course
           )
         );
@@ -86,14 +86,14 @@ const Courses = () => {
     }
   };
 
-  const getAssignmentCount = (courseId) => {
-    return assignments.filter(assignment => assignment.courseId === courseId).length;
+const getAssignmentCount = (courseId) => {
+    return assignments.filter(assignment => (assignment.course_id_c?.Id || assignment.course_id_c) === courseId).length;
   };
 
-  const filteredCourses = courses.filter(course =>
-    course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.instructor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.semester.toLowerCase().includes(searchTerm.toLowerCase())
+const filteredCourses = courses.filter(course =>
+    course.name_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    course.instructor_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    course.semester_c?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) return <Loading type="skeleton" message="Loading courses..." />;
@@ -164,8 +164,8 @@ const Courses = () => {
               <div className="text-purple-100">Total Courses</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold mb-1">
-                {courses.reduce((sum, course) => sum + course.credits, 0)}
+<div className="text-2xl font-bold mb-1">
+                {courses.reduce((sum, course) => sum + (course.credits_c || 0), 0)}
               </div>
               <div className="text-purple-100">Total Credits</div>
             </div>

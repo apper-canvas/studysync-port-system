@@ -5,13 +5,13 @@ import Select from "@/components/atoms/Select";
 import ApperIcon from "@/components/ApperIcon";
 
 const CourseModal = ({ isOpen, onClose, onSave, course = null }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    instructor: "",
-    credits: 3,
-    schedule: "",
-    semester: "",
-    color: "blue"
+const [formData, setFormData] = useState({
+    name_c: "",
+    instructor_c: "",
+    credits_c: 3,
+    schedule_c: "",
+    semester_c: "",
+    color_c: "blue"
   });
 
   const [errors, setErrors] = useState({});
@@ -28,14 +28,14 @@ const CourseModal = ({ isOpen, onClose, onSave, course = null }) => {
   ];
 
   useEffect(() => {
-    if (course) {
+if (course) {
       setFormData({
-        name: course.name || "",
-        instructor: course.instructor || "",
-        credits: course.credits || 3,
-        schedule: course.schedule || "",
-        semester: course.semester || "",
-        color: course.color || "blue"
+        name_c: course.name_c || "",
+        instructor_c: course.instructor_c || "",
+        credits_c: course.credits_c || 3,
+        schedule_c: course.schedule_c || "",
+        semester_c: course.semester_c || "",
+        color_c: course.color_c || "blue"
       });
     } else {
       setFormData({
@@ -76,11 +76,11 @@ const CourseModal = ({ isOpen, onClose, onSave, course = null }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+e.preventDefault();
     if (validateForm()) {
       onSave({
         ...formData,
-        credits: parseInt(formData.credits)
+        credits_c: parseInt(formData.credits_c)
       });
     }
   };
@@ -165,7 +165,7 @@ const CourseModal = ({ isOpen, onClose, onSave, course = null }) => {
                   className={`
                     w-full h-12 rounded-lg border-2 transition-all duration-200
                     ${color.class}
-                    ${formData.color === color.value ? "border-gray-800 scale-105" : "border-transparent"}
+${formData.color_c === color.value ? "border-gray-800 scale-105" : "border-transparent"}
                   `}
                   title={color.label}
                 />

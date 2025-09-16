@@ -48,11 +48,11 @@ const Grades = () => {
 
   const handleSaveGrade = async (gradeData) => {
     try {
-      await assignmentService.updateGrade(selectedAssignment.Id, gradeData.grade, gradeData.maxPoints);
+const updatedAssignment = await assignmentService.updateGrade(selectedAssignment.Id, gradeData.grade, gradeData.maxPoints);
       setAssignments(prev => 
         prev.map(assignment => 
           assignment.Id === selectedAssignment.Id 
-            ? { ...assignment, grade: gradeData.grade, maxPoints: gradeData.maxPoints }
+            ? updatedAssignment
             : assignment
         )
       );
@@ -86,14 +86,14 @@ const Grades = () => {
   };
 
   const getCourseGrade = (courseId) => {
-    const courseAssignments = assignments.filter(a => 
-      a.courseId === courseId && a.grade !== null && a.grade !== undefined
+const courseAssignments = assignments.filter(a => 
+      (a.course_id_c?.Id || a.course_id_c) === courseId && a.grade_c !== null && a.grade_c !== undefined
     );
     
     if (courseAssignments.length === 0) return null;
     
     const totalWeightedScore = courseAssignments.reduce((sum, assignment) => 
-      sum + (assignment.grade / assignment.maxPoints * 100), 0);
+      sum + (assignment.grade_c / assignment.max_points_c * 100), 0);
     
     return Math.round(totalWeightedScore / courseAssignments.length);
   };
@@ -118,17 +118,16 @@ const Grades = () => {
                   item.grade >= 70 ? 1.7 :
                   item.grade >= 67 ? 1.3 :
                   item.grade >= 65 ? 1.0 : 0.0;
-      return sum + (gpa * item.course.credits);
+return sum + (gpa * item.course.credits_c);
     }, 0);
 
-    const totalCredits = gradedCourses.reduce((sum, item) => sum + item.course.credits, 0);
+    const totalCredits = gradedCourses.reduce((sum, item) => sum + item.course.credits_c, 0);
     return totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : null;
   };
 
-  const filteredAssignments = selectedCourse === "all" 
+const filteredAssignments = selectedCourse === "all" 
     ? assignments 
-    : assignments.filter(a => a.courseId === parseInt(selectedCourse));
-
+    : assignments.filter(a => (a.course_id_c?.Id || a.course_id_c) === parseInt(selectedCourse));
   if (loading) return <Loading type="skeleton" message="Loading grades..." />;
   if (error) return <Error message={error} onRetry={loadData} />;
 
@@ -166,19 +165,19 @@ const Grades = () => {
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary"
         >
           <option value="all">All Courses</option>
-          {courses.map(course => (
+{courses.map(course => (
             <option key={course.Id} value={course.Id}>
-              {course.name}
+              {course.name_c}
             </option>
           ))}
         </select>
       </div>
 
       {/* Course Grades Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {courses.map(course => {
           const courseGrade = getCourseGrade(course.Id);
-          const courseAssignments = assignments.filter(a => a.courseId === course.Id);
+          const courseAssignments = assignments.filter(a => (a.course_id_c?.Id || a.course_id_c) === course.Id);
           const gradedAssignments = courseAssignments.filter(a => a.grade !== null && a.grade !== undefined);
           
           const colorMap = {
@@ -193,14 +192,14 @@ const Grades = () => {
           };
 
           return (
-            <Card key={course.Id} className="p-6">
+<Card key={course.Id} className="p-6">
               <div className="flex items-center space-x-3 mb-4">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorMap[course.color] || "from-primary to-purple-600"} flex items-center justify-center text-white font-bold`}>
-                  {course.name.charAt(0)}
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorMap[course.color_c] || "from-primary to-purple-600"} flex items-center justify-center text-white font-bold`}>
+                  {course.name_c?.charAt(0)}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-gray-900">{course.name}</h3>
-                  <p className="text-sm text-gray-600">{course.credits} Credits</p>
+                  <h3 className="font-bold text-gray-900">{course.name_c}</h3>
+                  <p className="text-sm text-gray-600">{course.credits_c} Credits</p>
                 </div>
               </div>
               
@@ -249,10 +248,10 @@ const Grades = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredAssignments.map(assignment => {
-                  const course = courses.find(c => c.Id === assignment.courseId);
-                  const hasGrade = assignment.grade !== null && assignment.grade !== undefined;
-                  const percentage = hasGrade ? Math.round((assignment.grade / assignment.maxPoints) * 100) : null;
+{filteredAssignments.map(assignment => {
+                  const course = courses.find(c => c.Id === (assignment.course_id_c?.Id || assignment.course_id_c));
+                  const hasGrade = assignment.grade_c !== null && assignment.grade_c !== undefined;
+                  const percentage = hasGrade ? Math.round((assignment.grade_c / assignment.max_points_c) * 100) : null;
                   
                   return (
                     <tr key={assignment.Id} className="border-b border-gray-100 hover:bg-gray-50">

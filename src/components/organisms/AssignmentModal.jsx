@@ -6,30 +6,30 @@ import Select from "@/components/atoms/Select";
 import ApperIcon from "@/components/ApperIcon";
 
 const AssignmentModal = ({ isOpen, onClose, onSave, assignment = null, courses = [] }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    courseId: "",
-    dueDate: "",
-    priority: "medium",
-    grade: "",
-    maxPoints: 100,
-    completed: false
+const [formData, setFormData] = useState({
+    title_c: "",
+    description_c: "",
+    course_id_c: "",
+    due_date_c: "",
+    priority_c: "medium",
+    grade_c: "",
+    max_points_c: 100,
+    completed_c: false
   });
 
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (assignment) {
-      setFormData({
-        title: assignment.title || "",
-        description: assignment.description || "",
-        courseId: assignment.courseId || "",
-        dueDate: assignment.dueDate ? format(new Date(assignment.dueDate), "yyyy-MM-dd") : "",
-        priority: assignment.priority || "medium",
-        grade: assignment.grade !== null && assignment.grade !== undefined ? assignment.grade.toString() : "",
-        maxPoints: assignment.maxPoints || 100,
-        completed: assignment.completed || false
+setFormData({
+        title_c: assignment.title_c || "",
+        description_c: assignment.description_c || "",
+        course_id_c: assignment.course_id_c?.Id || assignment.course_id_c || "",
+        due_date_c: assignment.due_date_c ? format(new Date(assignment.due_date_c), "yyyy-MM-dd") : "",
+        priority_c: assignment.priority_c || "medium",
+        grade_c: assignment.grade_c !== null && assignment.grade_c !== undefined ? assignment.grade_c.toString() : "",
+        max_points_c: assignment.max_points_c || 100,
+        completed_c: assignment.completed_c || false
       });
     } else {
       setFormData({
@@ -60,15 +60,15 @@ const AssignmentModal = ({ isOpen, onClose, onSave, assignment = null, courses =
   };
 
   const validateForm = () => {
-    const newErrors = {};
-    if (!formData.title.trim()) newErrors.title = "Assignment title is required";
-    if (!formData.courseId) newErrors.courseId = "Course selection is required";
-    if (!formData.dueDate) newErrors.dueDate = "Due date is required";
-    if (formData.grade && (isNaN(formData.grade) || parseFloat(formData.grade) < 0)) {
-      newErrors.grade = "Grade must be a valid number";
+const newErrors = {};
+    if (!formData.title_c?.trim()) newErrors.title_c = "Assignment title is required";
+    if (!formData.course_id_c) newErrors.course_id_c = "Course selection is required";
+    if (!formData.due_date_c) newErrors.due_date_c = "Due date is required";
+    if (formData.grade_c && (isNaN(formData.grade_c) || parseFloat(formData.grade_c) < 0)) {
+      newErrors.grade_c = "Grade must be a valid number";
     }
-    if (formData.maxPoints && (isNaN(formData.maxPoints) || parseFloat(formData.maxPoints) <= 0)) {
-      newErrors.maxPoints = "Max points must be a positive number";
+    if (formData.max_points_c && (isNaN(formData.max_points_c) || parseFloat(formData.max_points_c) <= 0)) {
+      newErrors.max_points_c = "Max points must be a positive number";
     }
     
     setErrors(newErrors);
@@ -80,8 +80,8 @@ const AssignmentModal = ({ isOpen, onClose, onSave, assignment = null, courses =
     if (validateForm()) {
       const submitData = {
         ...formData,
-        grade: formData.grade ? parseFloat(formData.grade) : null,
-        maxPoints: parseFloat(formData.maxPoints)
+        grade_c: formData.grade_c ? parseFloat(formData.grade_c) : null,
+        max_points_c: parseFloat(formData.max_points_c)
       };
       onSave(submitData);
     }
@@ -135,8 +135,8 @@ const AssignmentModal = ({ isOpen, onClose, onSave, assignment = null, courses =
             >
               <option value="">Select Course</option>
               {courses.map(course => (
-                <option key={course.Id} value={course.Id}>
-                  {course.name}
+<option key={course.Id} value={course.Id}>
+                  {course.name_c}
                 </option>
               ))}
             </Select>
@@ -185,10 +185,10 @@ const AssignmentModal = ({ isOpen, onClose, onSave, assignment = null, courses =
           {assignment && (
             <div className="flex items-center space-x-3">
               <input
-                type="checkbox"
+type="checkbox"
                 id="completed"
-                checked={formData.completed}
-                onChange={(e) => handleChange("completed", e.target.checked)}
+                checked={formData.completed_c}
+                onChange={(e) => handleChange("completed_c", e.target.checked)}
                 className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary/20"
               />
               <label htmlFor="completed" className="text-sm font-medium text-gray-700">

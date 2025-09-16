@@ -38,13 +38,13 @@ const Calendar = () => {
     loadData();
   }, []);
 
-  const getAssignmentsForDate = (date) => {
+const getAssignmentsForDate = (date) => {
     return assignments.filter(assignment => 
-      isSameDay(new Date(assignment.dueDate), date)
+      isSameDay(new Date(assignment.due_date_c), date)
     );
   };
 
-  const getCourseColor = (courseId) => {
+const getCourseColor = (courseId) => {
     const course = courses.find(c => c.Id === courseId);
     const colorMap = {
       blue: "bg-blue-500",
@@ -59,7 +59,7 @@ const Calendar = () => {
     return colorMap[course?.color] || "bg-primary";
   };
 
-  const getCourseTextColor = (courseId) => {
+const getCourseTextColor = (courseId) => {
     const course = courses.find(c => c.Id === courseId);
     const colorMap = {
       blue: "text-blue-700",
@@ -108,13 +108,13 @@ const Calendar = () => {
                 </div>
                 
                 <div className="space-y-1">
-                  {dayAssignments.slice(0, 3).map(assignment => {
-                    const course = courses.find(c => c.Id === assignment.courseId);
+{dayAssignments.slice(0, 3).map(assignment => {
+                    const course = courses.find(c => c.Id === (assignment.course_id_c?.Id || assignment.course_id_c));
                     return (
                       <div
-                        key={assignment.Id}
+key={assignment.Id}
                         className={`
-                          text-xs p-1 rounded ${getCourseColor(assignment.courseId)} text-white
+                          text-xs p-1 rounded ${getCourseColor(assignment.course_id_c?.Id || assignment.course_id_c)} text-white
                           ${assignment.completed ? "opacity-60 line-through" : ""}
                           truncate cursor-pointer hover:opacity-80 transition-opacity
                         `}
@@ -139,11 +139,10 @@ const Calendar = () => {
   };
 
   const renderUpcomingAssignments = () => {
-    const upcomingAssignments = assignments
-      .filter(assignment => new Date(assignment.dueDate) >= new Date())
-      .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+const upcomingAssignments = assignments
+      .filter(assignment => new Date(assignment.due_date_c) >= new Date())
+      .sort((a, b) => new Date(a.due_date_c) - new Date(b.due_date_c))
       .slice(0, 10);
-
     return (
       <Card className="p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-4">Upcoming Assignments</h3>
@@ -158,13 +157,13 @@ const Calendar = () => {
               const daysUntil = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
 
               return (
-                <div
+<div
                   key={assignment.Id}
                   className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                 >
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900 mb-1">{assignment.title}</h4>
-                    <p className="text-sm text-gray-600">{course?.name || "Unknown Course"}</p>
+                    <h4 className="font-medium text-gray-900 mb-1">{assignment.title_c}</h4>
+                    <p className="text-sm text-gray-600">{course?.name_c || "Unknown Course"}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium text-gray-900">
@@ -231,9 +230,9 @@ const Calendar = () => {
       <div className="flex flex-wrap gap-4 items-center">
         <span className="text-sm font-medium text-gray-700">Course Colors:</span>
         {courses.slice(0, 6).map(course => (
-          <div key={course.Id} className="flex items-center space-x-2">
+<div key={course.Id} className="flex items-center space-x-2">
             <div className={`w-3 h-3 rounded-full ${getCourseColor(course.Id)}`} />
-            <span className="text-sm text-gray-600">{course.name}</span>
+            <span className="text-sm text-gray-700">{course.name_c}</span>
           </div>
         ))}
         {courses.length > 6 && (
@@ -257,8 +256,8 @@ const Calendar = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="text-center">
             <div className="text-2xl font-bold mb-1">
-              {assignments.filter(a => {
-                const dueDate = new Date(a.dueDate);
+{assignments.filter(a => {
+                const dueDate = new Date(a.due_date_c);
                 return dueDate.getMonth() === currentDate.getMonth() && 
                        dueDate.getFullYear() === currentDate.getFullYear();
               }).length}
@@ -266,10 +265,10 @@ const Calendar = () => {
             <div className="text-purple-100 text-sm">Assignments Due</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold mb-1">
+<div className="text-2xl font-bold mb-1">
               {assignments.filter(a => {
-                const dueDate = new Date(a.dueDate);
-                return a.completed && 
+                const dueDate = new Date(a.due_date_c);
+                return a.completed_c && 
                        dueDate.getMonth() === currentDate.getMonth() && 
                        dueDate.getFullYear() === currentDate.getFullYear();
               }).length}

@@ -55,14 +55,14 @@ const Assignments = () => {
     setIsModalOpen(true);
   };
 
-  const handleSaveAssignment = async (assignmentData) => {
+const handleSaveAssignment = async (assignmentData) => {
     try {
       if (selectedAssignment) {
-        await assignmentService.update(selectedAssignment.Id, assignmentData);
+        const updatedAssignment = await assignmentService.update(selectedAssignment.Id, assignmentData);
         setAssignments(prev => 
           prev.map(assignment => 
             assignment.Id === selectedAssignment.Id 
-              ? { ...assignmentData, Id: selectedAssignment.Id }
+              ? updatedAssignment
               : assignment
           )
         );
@@ -94,9 +94,9 @@ const Assignments = () => {
     try {
       await assignmentService.toggleComplete(assignmentId);
       setAssignments(prev => 
-        prev.map(assignment => 
+prev.map(assignment => 
           assignment.Id === assignmentId 
-            ? { ...assignment, completed: !assignment.completed }
+            ? { ...assignment, completed_c: !assignment.completed_c }
             : assignment
         )
       );
@@ -114,28 +114,28 @@ const Assignments = () => {
   };
 
   const getFilteredAssignments = () => {
-    return assignments.filter(assignment => {
-      const course = courses.find(c => c.Id === assignment.courseId);
-      const matchesSearch = assignment.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          assignment.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          (course?.name || "").toLowerCase().includes(searchTerm.toLowerCase());
+return assignments.filter(assignment => {
+      const course = courses.find(c => c.Id === assignment.course_id_c?.Id || assignment.course_id_c);
+      const matchesSearch = assignment.title_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          assignment.description_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (course?.name_c || "").toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesCourse = !courseFilter || assignment.courseId === parseInt(courseFilter);
-      const matchesPriority = !priorityFilter || assignment.priority === priorityFilter;
+      const matchesCourse = !courseFilter || (assignment.course_id_c?.Id || assignment.course_id_c) === parseInt(courseFilter);
+      const matchesPriority = !priorityFilter || assignment.priority_c === priorityFilter;
       
       let matchesStatus = true;
-      if (statusFilter === "completed") matchesStatus = assignment.completed;
-      else if (statusFilter === "pending") matchesStatus = !assignment.completed && new Date(assignment.dueDate) >= new Date();
-      else if (statusFilter === "overdue") matchesStatus = !assignment.completed && new Date(assignment.dueDate) < new Date();
+if (statusFilter === "completed") matchesStatus = assignment.completed_c;
+      else if (statusFilter === "pending") matchesStatus = !assignment.completed_c && new Date(assignment.due_date_c) >= new Date();
+      else if (statusFilter === "overdue") matchesStatus = !assignment.completed_c && new Date(assignment.due_date_c) < new Date();
 
       return matchesSearch && matchesCourse && matchesPriority && matchesStatus;
-    }).sort((a, b) => {
+}).sort((a, b) => {
       // Sort by due date, with overdue first, then by priority
-      const aDate = new Date(a.dueDate);
-      const bDate = new Date(b.dueDate);
+      const aDate = new Date(a.due_date_c);
+      const bDate = new Date(b.due_date_c);
       const today = new Date();
       
-      const aOverdue = aDate < today && !a.completed;
+      const aOverdue = aDate < today && !a.completed_c;
       const bOverdue = bDate < today && !b.completed;
       
       if (aOverdue && !bOverdue) return -1;
@@ -146,9 +146,9 @@ const Assignments = () => {
         return aDate - bDate;
       }
       
-      // Finally sort by priority
+// Finally sort by priority
       const priorityOrder = { high: 0, medium: 1, low: 2 };
-      return priorityOrder[a.priority] - priorityOrder[b.priority];
+      return priorityOrder[a.priority_c] - priorityOrder[b.priority_c];
     });
   };
 
@@ -160,8 +160,8 @@ const Assignments = () => {
   // Calculate stats
   const totalAssignments = assignments.length;
   const completedAssignments = assignments.filter(a => a.completed).length;
-  const overdueAssignments = assignments.filter(a => 
-    !a.completed && new Date(a.dueDate) < new Date()
+const overdueAssignments = assignments.filter(a => 
+    !a.completed_c && new Date(a.due_date_c) < new Date()
   ).length;
 
   return (
@@ -240,8 +240,8 @@ const Assignments = () => {
         />
       ) : (
         <div className="space-y-4">
-          {filteredAssignments.map(assignment => {
-            const course = courses.find(c => c.Id === assignment.courseId);
+{filteredAssignments.map(assignment => {
+            const course = courses.find(c => c.Id === (assignment.course_id_c?.Id || assignment.course_id_c));
             return (
               <AssignmentCard
                 key={assignment.Id}

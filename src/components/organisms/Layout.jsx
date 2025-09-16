@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import Button from "@/components/atoms/Button";
+import { useSelector } from "react-redux";
+import { AuthContext } from "../../App";
 import ApperIcon from "@/components/ApperIcon";
+import Button from "@/components/atoms/Button";
 
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,7 +17,7 @@ const Layout = () => {
   ];
 
   const NavContent = () => (
-    <nav className="flex flex-col space-y-2">
+<nav className="flex flex-col space-y-2">
       {navItems.map((item) => (
         <NavLink
           key={item.path}
@@ -36,6 +38,31 @@ const Layout = () => {
     </nav>
   );
 
+  const LogoutButton = () => {
+    const { user } = useSelector((state) => state.user);
+    const { logout } = useContext(AuthContext);
+
+    return (
+      <div className="space-y-3">
+        {user && (
+          <div className="text-sm text-gray-600">
+            <div className="font-medium">{user.firstName} {user.lastName}</div>
+            <div className="text-xs text-gray-500">{user.emailAddress}</div>
+          </div>
+        )}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={logout}
+          className="w-full flex items-center justify-center space-x-2"
+        >
+          <ApperIcon name="LogOut" size={16} />
+<span>Logout</span>
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Desktop Sidebar */}
@@ -52,9 +79,12 @@ const Layout = () => {
               </div>
             </div>
           </div>
-          <div className="flex-1 flex flex-col pt-6 pb-4 overflow-y-auto">
+<div className="flex-1 flex flex-col pt-6 pb-4 overflow-y-auto">
             <div className="flex-1 px-4">
               <NavContent />
+            </div>
+            <div className="px-4 pt-4 border-t border-gray-200">
+              <LogoutButton />
             </div>
           </div>
         </div>
@@ -103,10 +133,11 @@ const Layout = () => {
                   <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-xl flex items-center justify-center">
                     <ApperIcon name="GraduationCap" size={24} className="text-white" />
                   </div>
-                  <div>
+<div className="flex-1">
                     <h1 className="text-xl font-bold gradient-text">StudySync</h1>
                     <p className="text-xs text-gray-500">Academic Hub</p>
                   </div>
+                  <LogoutButton />
                 </div>
               </div>
               <div className="flex-1 h-0 pt-6 pb-4 overflow-y-auto">

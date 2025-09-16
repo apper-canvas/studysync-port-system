@@ -1,0 +1,134 @@
+[
+  {
+    "Id": 1,
+    "courseId": 1,
+    "title": "Python Programming Assignment",
+    "description": "Create a basic calculator using Python with functions for add, subtract, multiply, and divide operations.",
+    "dueDate": "2024-12-15T23:59:00.000Z",
+    "priority": "high",
+    "completed": false,
+    "grade": null,
+    "maxPoints": 100
+  },
+  {
+    "Id": 2,
+    "courseId": 1,
+    "title": "Data Structures Quiz",
+    "description": "Online quiz covering arrays, linked lists, and basic algorithmic complexity.",
+    "dueDate": "2024-12-10T23:59:00.000Z",
+    "priority": "medium",
+    "completed": true,
+    "grade": 92,
+    "maxPoints": 100
+  },
+  {
+    "Id": 3,
+    "courseId": 2,
+    "title": "Derivative Practice Problems",
+    "description": "Complete exercises 1-30 from Chapter 3 on derivatives and limits.",
+    "dueDate": "2024-12-18T23:59:00.000Z",
+    "priority": "medium",
+    "completed": false,
+    "grade": null,
+    "maxPoints": 50
+  },
+  {
+    "Id": 4,
+    "courseId": 2,
+    "title": "Midterm Exam",
+    "description": "Comprehensive exam covering limits, derivatives, and applications.",
+    "dueDate": "2024-12-20T14:00:00.000Z",
+    "priority": "high",
+    "completed": true,
+    "grade": 88,
+    "maxPoints": 150
+  },
+  {
+    "Id": 5,
+    "courseId": 3,
+    "title": "Argumentative Essay",
+    "description": "Write a 5-page argumentative essay on the topic of social media's impact on modern communication.",
+    "dueDate": "2024-12-22T23:59:00.000Z",
+    "priority": "high",
+    "completed": false,
+    "grade": null,
+    "maxPoints": 100
+  },
+  {
+    "Id": 6,
+    "courseId": 3,
+    "title": "Grammar and Style Quiz",
+    "description": "Quiz on MLA citation format, grammar rules, and writing style guidelines.",
+    "dueDate": "2024-12-12T23:59:00.000Z",
+    "priority": "low",
+    "completed": true,
+    "grade": 95,
+    "maxPoints": 75
+  },
+  {
+    "Id": 7,
+    "courseId": 4,
+    "title": "Lab Report - Motion and Forces",
+    "description": "Write a detailed lab report analyzing the relationship between force, mass, and acceleration.",
+    "dueDate": "2024-12-16T23:59:00.000Z",
+    "priority": "medium",
+    "completed": false,
+    "grade": null,
+    "maxPoints": 80
+  },
+  {
+    "Id": 8,
+    "courseId": 4,
+    "title": "Problem Set Chapter 5",
+    "description": "Solve physics problems related to energy, work, and power concepts.",
+    "dueDate": "2024-12-14T23:59:00.000Z",
+    "priority": "medium",
+    "completed": true,
+    "grade": 78,
+    "maxPoints": 60
+  },
+  {
+    "Id": 9,
+    "courseId": 5,
+    "title": "Research Paper - Cognitive Psychology",
+    "description": "Research and write a 8-page paper on a specific topic in cognitive psychology with at least 10 academic sources.",
+    "dueDate": "2024-12-25T23:59:00.000Z",
+    "priority": "high",
+    "completed": false,
+    "grade": null,
+    "maxPoints": 150
+  },
+  {
+    "Id": 10,
+    "courseId": 5,
+    "title": "Chapter 4 Discussion Post",
+    "description": "Participate in online discussion about learning theories and provide thoughtful responses to classmates.",
+    "dueDate": "2024-12-11T23:59:00.000Z",
+    "priority": "low",
+    "completed": true,
+    "grade": 100,
+    "maxPoints": 25
+  },
+  {
+    "Id": 11,
+    "courseId": 6,
+    "title": "Binary Search Tree Implementation",
+    "description": "Implement a complete binary search tree in Java with insert, delete, and search operations.",
+    "dueDate": "2024-12-19T23:59:00.000Z",
+    "priority": "high",
+    "completed": false,
+    "grade": null,
+    "maxPoints": 120
+  },
+  {
+    "Id": 12,
+    "courseId": 6,
+    "title": "Algorithm Complexity Analysis",
+    "description": "Analyze the time and space complexity of various sorting algorithms and write a comparative report.",
+    "dueDate": "2024-12-17T23:59:00.000Z",
+    "priority": "medium",
+    "completed": false,
+    "grade": null,
+    "maxPoints": 90
+  }
+]

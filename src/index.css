@@ -1,0 +1,84 @@
+@import "react-toastify/dist/ReactToastify.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  color: #1f2937;
+  background-color: #f8fafc;
+}
+
+/* Toast Customization */
+.Toastify__toast-container {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.Toastify__toast {
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+}
+
+.Toastify__toast--info {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+}
+
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Custom utility classes */
+.gradient-text {
+  background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-hover {
+  transition: all 0.2s ease-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}

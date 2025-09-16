@@ -13,6 +13,7 @@ import Layout from "@/components/organisms/Layout";
 import Dashboard from "@/components/pages/Dashboard";
 import Courses from "@/components/pages/Courses";
 import Assignments from "@/components/pages/Assignments";
+import Students from "@/components/pages/Students";
 import Calendar from "@/components/pages/Calendar";
 import Grades from "@/components/pages/Grades";
 
@@ -121,7 +122,8 @@ function App() {
         <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="courses" element={<Courses />} />
+<Route path="courses" element={<Courses />} />
+          <Route path="students" element={<Students />} />
           <Route path="assignments" element={<Assignments />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="grades" element={<Grades />} />

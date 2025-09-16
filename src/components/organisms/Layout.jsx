@@ -8,8 +8,9 @@ import Button from "@/components/atoms/Button";
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navItems = [
+const navItems = [
     { path: "/", icon: "Home", label: "Dashboard" },
+    { path: "/students", icon: "Users", label: "Students" },
     { path: "/courses", icon: "BookOpen", label: "Courses" },
     { path: "/assignments", icon: "FileText", label: "Assignments" },
     { path: "/calendar", icon: "Calendar", label: "Calendar" },

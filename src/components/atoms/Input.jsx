@@ -36,9 +36,8 @@ const Input = forwardRef(({
           )}
           ref={ref}
           {...props}
-        />
+/>
       </div>
-      />
       {error && (
         <p className="mt-1 text-sm text-error">{error}</p>
       )}

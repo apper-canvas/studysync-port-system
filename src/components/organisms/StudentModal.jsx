@@ -12,7 +12,8 @@ const StudentModal = ({ isOpen, onClose, onSave, student }) => {
     phone_c: '',
     date_of_birth_c: '',
     address_c: '',
-    grade_level_c: ''
+grade_level_c: '',
+    amount_paid_c: ''
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,8 @@ const StudentModal = ({ isOpen, onClose, onSave, student }) => {
         phone_c: student.phone_c || '',
         date_of_birth_c: student.date_of_birth_c || '',
         address_c: student.address_c || '',
-        grade_level_c: student.grade_level_c?.toString() || ''
+grade_level_c: student.grade_level_c?.toString() || '',
+        amount_paid_c: student.amount_paid_c?.toString() || ''
       });
     } else {
       setFormData({
@@ -36,7 +38,8 @@ const StudentModal = ({ isOpen, onClose, onSave, student }) => {
         phone_c: '',
         date_of_birth_c: '',
         address_c: '',
-        grade_level_c: ''
+grade_level_c: '',
+        amount_paid_c: ''
       });
     }
     setErrors({});
@@ -200,6 +203,20 @@ const StudentModal = ({ isOpen, onClose, onSave, student }) => {
               rows="3"
               placeholder="Enter student address"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors duration-200"
+/>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Amount Paid
+            </label>
+            <Input
+              type="number"
+              step="0.01"
+              name="amount_paid_c"
+              value={formData.amount_paid_c}
+              onChange={handleInputChange}
+              placeholder="Enter amount paid"
+              min="0"
             />
           </div>
 

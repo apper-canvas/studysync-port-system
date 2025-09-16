@@ -13,6 +13,7 @@ const StudentModal = ({ isOpen, onClose, onSave, student }) => {
     date_of_birth_c: '',
     address_c: '',
 grade_level_c: '',
+    gender_c: '',
     amount_paid_c: ''
   });
   const [errors, setErrors] = useState({});
@@ -28,6 +29,7 @@ grade_level_c: '',
         date_of_birth_c: student.date_of_birth_c || '',
         address_c: student.address_c || '',
 grade_level_c: student.grade_level_c?.toString() || '',
+        gender_c: student.gender_c || '',
         amount_paid_c: student.amount_paid_c?.toString() || ''
       });
     } else {
@@ -39,6 +41,7 @@ grade_level_c: student.grade_level_c?.toString() || '',
         date_of_birth_c: '',
         address_c: '',
 grade_level_c: '',
+        gender_c: '',
         amount_paid_c: ''
       });
     }
@@ -168,7 +171,7 @@ grade_level_c: '',
             value={formData.date_of_birth_c}
             onChange={handleInputChange}
             error={errors.date_of_birth_c}
-          />
+/>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -192,6 +195,24 @@ grade_level_c: '',
             )}
           </div>
 
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Gender
+            </label>
+            <Select
+              name="gender_c"
+              value={formData.gender_c}
+              onChange={handleInputChange}
+              className={errors.gender_c ? 'border-error focus:ring-error/20 focus:border-error' : ''}
+            >
+              <option value="">Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </Select>
+            {errors.gender_c && (
+              <p className="mt-1 text-sm text-error">{errors.gender_c}</p>
+            )}
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Address

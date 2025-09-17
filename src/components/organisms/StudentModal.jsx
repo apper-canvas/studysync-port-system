@@ -14,7 +14,8 @@ const StudentModal = ({ isOpen, onClose, onSave, student }) => {
     address_c: '',
 grade_level_c: '',
     gender_c: '',
-    amount_paid_c: ''
+    amount_paid_c: '',
+    remaining_amount_c: ''
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,8 @@ grade_level_c: '',
         address_c: student.address_c || '',
 grade_level_c: student.grade_level_c?.toString() || '',
         gender_c: student.gender_c || '',
-        amount_paid_c: student.amount_paid_c?.toString() || ''
+        amount_paid_c: student.amount_paid_c?.toString() || '',
+        remaining_amount_c: student.remaining_amount_c?.toString() || ''
       });
     } else {
       setFormData({
@@ -42,7 +44,8 @@ grade_level_c: student.grade_level_c?.toString() || '',
         address_c: '',
 grade_level_c: '',
         gender_c: '',
-        amount_paid_c: ''
+        amount_paid_c: '',
+        remaining_amount_c: ''
       });
     }
     setErrors({});
@@ -235,6 +238,22 @@ grade_level_c: '',
               name="amount_paid_c"
               value={formData.amount_paid_c}
               onChange={handleInputChange}
+placeholder="0.00"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Remaining Amount
+            </label>
+            <Input
+              type="number"
+              name="remaining_amount_c"
+              value={formData.remaining_amount_c}
+              onChange={handleInputChange}
+              step="0.01"
+              min="0"
+              className="w-full"
               placeholder="0.00"
             />
           </div>

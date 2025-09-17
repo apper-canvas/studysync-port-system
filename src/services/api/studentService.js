@@ -27,7 +27,8 @@ class StudentService {
           {"field": {"Name": "address_c"}},
 {"field": {"Name": "grade_level_c"}},
           {"field": {"Name": "gender_c"}},
-          {"field": {"Name": "amount_paid_c"}}
+          {"field": {"Name": "amount_paid_c"}},
+          {"field": {"Name": "remaining_amount_c"}}
         ],
         orderBy: [{"fieldName": "last_name_c", "sorttype": "ASC"}]
       };
@@ -59,8 +60,9 @@ class StudentService {
           {"field": {"Name": "date_of_birth_c"}},
 {"field": {"Name": "address_c"}},
           {"field": {"Name": "grade_level_c"}},
-          {"field": {"Name": "gender_c"}},
-          {"field": {"Name": "amount_paid_c"}}
+{"field": {"Name": "gender_c"}},
+          {"field": {"Name": "amount_paid_c"}},
+          {"field": {"Name": "remaining_amount_c"}}
         ]
       };
       
@@ -89,9 +91,10 @@ class StudentService {
           phone_c: studentData.phone_c,
           date_of_birth_c: studentData.date_of_birth_c,
 address_c: studentData.address_c,
-          grade_level_c: parseInt(studentData.grade_level_c),
+grade_level_c: parseInt(studentData.grade_level_c),
           gender_c: studentData.gender_c,
-          amount_paid_c: parseFloat(studentData.amount_paid_c) || 0
+          amount_paid_c: parseFloat(studentData.amount_paid_c) || 0,
+          remaining_amount_c: parseFloat(studentData.remaining_amount_c) || 0
         }]
       };
       
@@ -139,7 +142,8 @@ address_c: studentData.address_c,
 address_c: studentData.address_c,
           grade_level_c: parseInt(studentData.grade_level_c),
           gender_c: studentData.gender_c,
-          amount_paid_c: parseFloat(studentData.amount_paid_c) || 0
+          amount_paid_c: parseFloat(studentData.amount_paid_c) || 0,
+          remaining_amount_c: parseFloat(studentData.remaining_amount_c) || 0
         }]
       };
       
